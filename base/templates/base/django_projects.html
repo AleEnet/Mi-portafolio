@@ -1,0 +1,54 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+{% block content%}
+<body>
+  <div class="container">
+    <div class="row ">
+
+        <div class="col-md-4 my-2 ">
+          <div class="card card-body " id = "">
+              
+              <h5>My projects! &nbsp;<a class= "btn btn-dark float-right" href="{% url 'home' %}">Back home</a> </h5>
+              <hr>
+              <img class = "card-img" src= "{% static 'image/django.png' %}" alt="">
+              <hr class="dashed-line"> 
+              <h5>My Django Projects    ||    What you will find... </h5>
+              <hr>
+              In all these projects, you will find all I know about Django  that I made for practice and fun! Also,
+              the code for this blog is available here! 
+              <hr class="dashed-line">
+  
+              
+          </div>
+        </div>
+
+        <div class="col-md-8 my-2">
+          
+            {% for publication in publication %}
+            <div class="card mb-3">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{publication.image.url}}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{publication.name}}</h5>
+                    <p class="card-text">{{publication.description}}</p>
+                    <li><img src="{% static 'image/github.png' %}" alt="" class="social"></li>
+                    <a type="submit" class = "btn btn-success m-3" href="{{publication.link}}">Go to GitHub!</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+           
+        </div>  
+          
+          
+      </div>
+    </div>
+  </div>
+    
+</body>
+{% endblock %}
