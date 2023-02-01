@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import  *
-from .forms import ContactForm
+from .forms import ContactForm, UserRegisterForm
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 def home(request):
     
@@ -40,3 +42,19 @@ def projects_django(request):
 
 def cursos(request):
     return render(request,"base/cursos.html")
+
+
+
+def register_user(request):
+	if request.method == 'POST':
+		form = UserRegisterForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data['username']
+			messages.success(request, f'Usuario {username} creado')
+			return redirect('home')
+	else:
+		form = UserRegisterForm()
+
+	context = { 'form' : form }
+	return render(request, 'base/register_user.html', context)
